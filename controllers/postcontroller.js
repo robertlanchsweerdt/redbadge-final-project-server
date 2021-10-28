@@ -8,7 +8,7 @@ const { validateJWT } = require('../middleware/');
 =========================
 */
 
-router.post('/post', validateJWT, async (req, res) => {
+router.post('/', validateJWT, async (req, res) => {
   const {
     title,
     category,
@@ -57,7 +57,7 @@ router.post('/post', validateJWT, async (req, res) => {
 =========================
 */
 
-router.get('/post', (req, res) => {
+router.get('/', (req, res) => {
   PostsModel.findAll()
     .then((post) => res.status(200).json(post))
     .catch((err) => res.status(500).json({ message: err.messge }));
@@ -69,7 +69,7 @@ router.get('/post', (req, res) => {
 =========================
 */
 
-router.get('/post/:id', validateJWT, (req, res) => {
+router.get('/:id', validateJWT, (req, res) => {
   const postId = req.params.id;
 
   const query = {
@@ -89,7 +89,7 @@ router.get('/post/:id', validateJWT, (req, res) => {
 =========================
 */
 
-router.put('/post/:id', validateJWT, async (req, res) => {
+router.put('/:id', validateJWT, async (req, res) => {
   const postId = req.params.id;
 
   const {
@@ -151,7 +151,7 @@ router.put('/post/:id', validateJWT, async (req, res) => {
 =========================
 */
 
-router.delete('/post/:id', validateJWT, (req, res) => {
+router.delete('/:id', validateJWT, (req, res) => {
   const postId = req.params.id;
 
   let query;

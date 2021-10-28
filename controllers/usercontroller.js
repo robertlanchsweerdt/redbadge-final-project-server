@@ -124,7 +124,7 @@ router.post('/login', async (req, res) => {
 =========================
 */
 
-router.get('/userinfo', validateJWT, async (req, res) => {
+router.get('/', validateJWT, async (req, res) => {
   try {
     await UsersModel.findAll().then((users) => res.status(200).json(users));
   } catch (err) {
@@ -138,7 +138,7 @@ router.get('/userinfo', validateJWT, async (req, res) => {
 =========================
 */
 
-router.get('/userinfo/:id', validateJWT, (req, res) => {
+router.get('/:id', validateJWT, (req, res) => {
   const userId = req.params.id;
 
   const query = {
@@ -158,7 +158,7 @@ router.get('/userinfo/:id', validateJWT, (req, res) => {
 =========================
 */
 
-router.put('/userinfo/:id', validateJWT, (req, res) => {
+router.put('/:id', validateJWT, (req, res) => {
   const userId = req.params.id;
 
   const {
@@ -179,7 +179,7 @@ router.put('/userinfo/:id', validateJWT, (req, res) => {
 
   const updateUser = {
     username,
-    password: bcrypt.hashSync(password, 13),
+    password,
     fname,
     lname,
     street_number,
@@ -193,12 +193,16 @@ router.put('/userinfo/:id', validateJWT, (req, res) => {
     bio,
   };
 
+  if (updateUser.password) {
+    updateUser.password = bcrypt.hashSync(updateUser.password, 13);
+  }
+
   let query;
 
   if (req.user.role === 'admin') {
     query = { where: { id: userId } };
   } else if (req.user.id === userId) {
-    query = { where: { id: userId } };
+    query = { where: { id: userId, userId: req.user.id } };
   }
 
   UsersModel.update(updateUser, query)
@@ -222,7 +226,7 @@ router.put('/userinfo/:id', validateJWT, (req, res) => {
 =========================
 */
 
-router.delete('/userinfo/:id', validateJWT, (req, res) => {
+router.delete('/:id', validateJWT, (req, res) => {
   const userId = req.params.id;
 
   const query = {

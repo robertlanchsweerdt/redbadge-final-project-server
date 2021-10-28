@@ -3,7 +3,7 @@ const db = require('../db');
 
 const Categories = db.define('categories', {
   category: {
-    type: DataTypes.JSON,
+    type: DataTypes.STRING(20),
   },
 });
 

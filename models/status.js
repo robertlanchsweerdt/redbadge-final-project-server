@@ -3,7 +3,7 @@ const db = require('../db');
 
 const Status = db.define('status', {
   status: {
-    type: DataTypes.JSON,
+    type: DataTypes.STRING(20),
   },
 });
 

@@ -8,13 +8,13 @@ const { validateJWT } = require('../middleware/');
 =========================
 */
 
-router.post('/comments/:id', (req, res) => {
-  const postId = req.params.id;
+router.post('/:id', validateJWT, (req, res) => {
+  console.log('*** User ID **** --->', req.user.id);
 
   const createComment = {
     comments: req.body.comments,
-    postId,
-    userId: '1235',
+    postId: req.params.id,
+    userId: req.user.id,
   };
 
   CommentsModel.create(createComment)
@@ -34,52 +34,109 @@ router.post('/comments/:id', (req, res) => {
 
 /*
 =========================
-   GET ALL COMMENTS
+   GET ALL COMMENTS BY POST ID
 =========================
 */
-router.get('/comments', async (req, res) => {
-  try {
-  } catch (e) {
-    res.status(500).json({ message: e.message });
-  }
+router.get('/post/:id', (req, res) => {
+  const postId = req.params.id;
+
+  const query = {
+    where: {
+      postId: postId,
+    },
+  };
+
+  CommentsModel.findAll(query)
+    .then((comment) => res.status(200).json(comment))
+    .catch((err) => res.status(500).json({ message: err.message }));
 });
 
 /*
 =========================
-   GET COMMENT BY ID
+   GET COMMENT BY COMMENT ID
 =========================
 */
-router.get('/comments:id', async (req, res) => {
-  try {
-  } catch (e) {
-    res.status(500).json({ message: e.message });
-  }
+router.get('/:id', (req, res) => {
+  const commentId = req.params.id;
+
+  const query = {
+    where: {
+      id: commentId,
+    },
+  };
+
+  CommentsModel.findOne(query)
+    .then((comment) => res.status(200).json(comment))
+    .catch((err) => res.status(500).json({ message: err.message }));
 });
 
 /*
 =========================
-   UPDATE COMMENT BY ID
+   UPDATE COMMENT BY COMMENT ID
 =========================
 */
 
-router.put('/comments:id', async (req, res) => {
-  try {
-  } catch (e) {
-    res.status(500).json({ message: e.message });
+router.put('/:id', validateJWT, (req, res) => {
+  const commentId = req.params.id;
+
+  const updateComment = {
+    comments: req.body.comments,
+  };
+
+  let query;
+
+  if (req.user.role === 'admin') {
+    query = { where: { id: commentId } };
+  } else {
+    query = { where: { id: commentId, userId: req.user.id } };
   }
+
+  CommentsModel.update(updateComment, query).then((comment) => {
+    res
+      .status(200)
+      .json({
+        message: 'Post has been updated',
+        comment,
+      })
+      .catch((err) =>
+        res.status(500).json({
+          message: 'Unable to update post',
+          error: err,
+        })
+      );
+  });
 });
 
 /*
 =========================
-   DELETE COMMENT BY ID
+   DELETE COMMENT BY COMMENT ID
 =========================
 */
 
-router.delete('/comments:id', async (req, res) => {
-  try {
-  } catch (e) {
-    res.status(500).json({ message: e.message });
+router.delete('/:id', validateJWT, (req, res) => {
+  const commentId = req.params.id;
+
+  let query;
+
+  if (req.user.role === 'admin') {
+    query = { where: { id: commentId } };
+  } else {
+    query = { where: { id: commentId, userId: req.user.id } };
   }
+
+  CommentsModel.destroy(query)
+    .then((comment) =>
+      res.status(200).json({
+        message: 'Comment has been deleted',
+        comment,
+      })
+    )
+    .catch((err) =>
+      res.status(500).json({
+        message: 'User does not have privileges to delete comment',
+        error: err,
+      })
+    );
 });
 
 module.exports = router;

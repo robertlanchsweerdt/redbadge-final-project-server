@@ -26,11 +26,7 @@ const Users = db.define('users', {
     type: DataTypes.STRING,
     allowNull: false,
   },
-  street_number: {
-    type: DataTypes.INTEGER,
-    allowNull: false,
-  },
-  street_name: {
+  address: {
     type: DataTypes.STRING,
     allowNull: false,
   },
@@ -48,7 +44,6 @@ const Users = db.define('users', {
   },
   tele: {
     type: DataTypes.STRING,
-    allowNull: false,
   },
   email: {
     type: DataTypes.STRING,

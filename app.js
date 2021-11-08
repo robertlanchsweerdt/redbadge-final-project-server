@@ -14,11 +14,11 @@ const { reset } = require('nodemon');
 // Parse the body of all requests as JSON
 app.use(Express.json());
 app.use(middlewares.CORS);
-app.use('/user', controllers.userController);
-app.use('/post', controllers.postController);
+app.use('/users', controllers.userController);
+app.use('/posts', controllers.postController);
 app.use('/status', controllers.statusController);
-app.use('/category', controllers.categoryController);
-app.use('/comment', controllers.commentController);
+app.use('/categories', controllers.categoryController);
+app.use('/comments', controllers.commentController);
 
 const resetDatabase = { force: true };
 db.authenticate()

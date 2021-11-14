@@ -4,7 +4,7 @@ const { validateJWT } = require('../middleware/');
 
 /*
 =========================
-   CREATE LOG
+   CREATE POST
 =========================
 */
 

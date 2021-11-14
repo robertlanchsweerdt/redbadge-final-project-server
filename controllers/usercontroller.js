@@ -147,7 +147,7 @@ router.get('/:id', validateJWT, (req, res) => {
 
   UsersModel.findOne(query)
     .then((user) => res.status(200).json(user))
-    .catch((err) => res.status(500).json({ messge: err.messge }));
+    .catch((err) => res.status(500).json({ message: err.messge }));
 });
 
 /*

@@ -18,17 +18,14 @@ const Posts = db.define('posts', {
     type: DataTypes.STRING,
     allowNull: false,
   },
-  street_number: {
-    type: DataTypes.INTEGER,
-  },
-  street_name: {
+  address: {
     type: DataTypes.STRING,
   },
   city: {
     type: DataTypes.STRING,
   },
   state: {
-    type: DataTypes.STRING,
+    type: DataTypes.STRING(20),
   },
   zip: {
     type: DataTypes.INTEGER,

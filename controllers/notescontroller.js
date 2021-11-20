@@ -21,7 +21,7 @@ router.post('/:id', validateJWT, (req, res) => {
     .then((note) =>
       res.status(200).json({
         message: 'Note added to complaint',
-        notes,
+        note,
       })
     )
     .catch((err) =>
@@ -46,7 +46,7 @@ router.get('/complaints/:id', (req, res) => {
     },
   };
 
-  CommentsModel.findAll(query)
+  NotesModel.findAll(query)
     .then((notes) => res.status(200).json(notes))
     .catch((err) => res.status(500).json({ message: err.message }));
 });

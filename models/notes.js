@@ -2,7 +2,7 @@ const { DataTypes } = require('sequelize');
 const db = require('../db');
 
 const Notes = db.define('notes', {
-  comments: {
+  notes: {
     type: DataTypes.TEXT,
     required: true,
   },

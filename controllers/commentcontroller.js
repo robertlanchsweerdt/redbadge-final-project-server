@@ -13,7 +13,7 @@ router.post('/:id', validateJWT, (req, res) => {
 
   const createComment = {
     comments: req.body.comments,
-    postId: req.params.id,
+    newsId: req.params.id,
     userId: req.user.id,
   };
 
@@ -34,15 +34,15 @@ router.post('/:id', validateJWT, (req, res) => {
 
 /*
 =========================
-   GET ALL COMMENTS BY POST ID
+   GET ALL COMMENTS BY NEWS ID
 =========================
 */
-router.get('/post/:id', (req, res) => {
-  const postId = req.params.id;
+router.get('/news/:id', (req, res) => {
+  const newsId = req.params.id;
 
   const query = {
     where: {
-      postId: postId,
+      newsId: newsId,
     },
   };
 

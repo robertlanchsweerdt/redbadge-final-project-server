@@ -1,11 +1,7 @@
 const { DataTypes } = require('sequelize');
 const db = require('../db');
 
-const Posts = db.define('posts', {
-  title: {
-    type: DataTypes.STRING,
-    allowNull: false,
-  },
+const Complaints = db.define('complaints', {
   category: {
     type: DataTypes.STRING,
     allowNull: false,
@@ -14,12 +10,9 @@ const Posts = db.define('posts', {
     type: DataTypes.STRING,
     allowNull: false,
   },
-  has_address: {
-    type: DataTypes.STRING,
-    allowNull: false,
-  },
   address: {
     type: DataTypes.STRING,
+    allowNull: false,
   },
   city: {
     type: DataTypes.STRING,
@@ -34,12 +27,9 @@ const Posts = db.define('posts', {
     type: DataTypes.TEXT,
     allowNull: false,
   },
-  cal_date: {
-    type: DataTypes.DATE,
-  },
   photos: {
     type: DataTypes.JSON,
   },
 });
 
-module.exports = Posts;
+module.exports = Complaints;

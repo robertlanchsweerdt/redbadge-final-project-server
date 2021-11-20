@@ -1,12 +1,16 @@
 const userController = require('./usercontroller');
-const postController = require('./postcontroller');
+const complaintsController = require('./complaintscontroller');
+const notesController = require('./notescontroller');
+const newsController = require('./newscontroller');
 const statusController = require('./statuscontroller');
 const categoryController = require('./categorycontroller');
 const commentController = require('./commentcontroller');
 
 module.exports = {
   userController,
-  postController,
+  complaintsController,
+  notesController,
+  newsController,
   statusController,
   categoryController,
   commentController,

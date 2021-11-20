@@ -1,39 +1,18 @@
 let router = require('express').Router();
-const { PostsModel } = require('../models');
-const { validateJWT } = require('../middleware/');
+const { NewsModel } = require('../models');
+const { validateJWT } = require('../middleware');
 
 /*
 =========================
-   CREATE POST
+   CREATE NEWS POST
 =========================
 */
 
 router.post('/', validateJWT, async (req, res) => {
-  const {
-    title,
-    category,
-    status,
-    has_address,
-    street_number,
-    street_name,
-    city,
-    state,
-    zip,
-    narrative,
-    cal_date,
-    photos,
-  } = req.body;
+  const { title, narrative, cal_date, photos } = req.body;
 
   const postEntry = {
     title,
-    category,
-    status,
-    has_address,
-    street_number,
-    street_name,
-    city,
-    state,
-    zip,
     narrative,
     cal_date,
     photos,
@@ -41,9 +20,9 @@ router.post('/', validateJWT, async (req, res) => {
   };
 
   try {
-    await PostsModel.create(postEntry);
+    await NewsModel.create(postEntry);
     res.status(201).json({
-      message: 'New post created',
+      message: 'News post created',
       postEntry,
     });
   } catch (err) {
@@ -53,19 +32,19 @@ router.post('/', validateJWT, async (req, res) => {
 
 /*
 =========================
-   GET ALL POSTS
+   GET ALL NEWS POSTS
 =========================
 */
 
 router.get('/', (req, res) => {
-  PostsModel.findAll()
+  NewsModel.findAll()
     .then((post) => res.status(200).json(post))
     .catch((err) => res.status(500).json({ message: err.messge }));
 });
 
 /*
 =========================
-   GET POST BY ID
+   GET NEWS POST BY ID
 =========================
 */
 
@@ -78,45 +57,24 @@ router.get('/:id', validateJWT, (req, res) => {
     },
   };
 
-  PostsModel.findOne(query)
+  NewsModel.findOne(query)
     .then((post) => res.status(200).json(post))
     .catch((err) => res.status(500).json({ message: err.messge }));
 });
 
 /*
 =========================
-   UPDATE POST BY ID
+   UPDATE NEWS POST BY ID
 =========================
 */
 
 router.put('/:id', validateJWT, async (req, res) => {
   const postId = req.params.id;
 
-  const {
-    title,
-    category,
-    status,
-    has_address,
-    street_number,
-    street_name,
-    city,
-    state,
-    zip,
-    narrative,
-    cal_date,
-    photos,
-  } = req.body;
+  const { title, narrative, cal_date, photos } = req.body;
 
   const updatePost = {
     title,
-    category,
-    status,
-    has_address,
-    street_number,
-    street_name,
-    city,
-    state,
-    zip,
     narrative,
     cal_date,
     photos,
@@ -130,16 +88,16 @@ router.put('/:id', validateJWT, async (req, res) => {
     query = { where: { id: postId, userId: req.user.id } };
   }
 
-  PostsModel.update(updatePost, query)
+  NewsModel.update(updatePost, query)
     .then((post) => {
       res.status(200).json({
-        message: 'Post has been updated',
+        message: 'News post has been updated',
         post,
       });
     })
     .catch((err) =>
       res.status(500).json({
-        message: 'Unable to update post',
+        message: 'Unable to update news post',
         error: err,
       })
     );
@@ -147,7 +105,7 @@ router.put('/:id', validateJWT, async (req, res) => {
 
 /*
 =========================
-   DELETE POST BY ID
+   DELETE NEWS POST BY ID
 =========================
 */
 
@@ -162,16 +120,16 @@ router.delete('/:id', validateJWT, (req, res) => {
     query = { where: { id: postId, userId: req.user.id } };
   }
 
-  PostsModel.destroy(query)
+  NewsModel.destroy(query)
     .then((post) =>
       res.status(200).json({
-        message: 'Post has been deleted',
+        message: 'News post has been deleted',
         post,
       })
     )
     .catch((err) =>
       res.status(500).json({
-        message: 'User does not have priviledges to delete post',
+        message: 'User does not have priviledges to delete news post',
         error: err,
       })
     );

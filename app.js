@@ -15,9 +15,11 @@ const { reset } = require('nodemon');
 app.use(Express.json());
 app.use(middlewares.CORS);
 app.use('/users', controllers.userController);
-app.use('/posts', controllers.postController);
+app.use('/complaints', controllers.complaintsController);
+app.use('/notes', controllers.notesController);
 app.use('/status', controllers.statusController);
 app.use('/categories', controllers.categoryController);
+app.use('/news', controllers.newsController);
 app.use('/comments', controllers.commentController);
 
 const resetDatabase = { force: true };

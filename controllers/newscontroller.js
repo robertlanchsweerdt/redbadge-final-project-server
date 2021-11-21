@@ -11,11 +11,14 @@ const { validateJWT } = require('../middleware');
 router.post('/', validateJWT, async (req, res) => {
   const { title, narrative, cal_date, photos } = req.body;
 
+  const author = `${req.user.fname} ${req.user.lname}`;
+
   const postEntry = {
     title,
     narrative,
     cal_date,
     photos,
+    author: author,
     userId: req.user.id,
   };
 

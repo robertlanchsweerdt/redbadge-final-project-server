@@ -30,6 +30,10 @@ const Complaints = db.define('complaints', {
   photos: {
     type: DataTypes.JSON,
   },
+  author: {
+    type: DataTypes.STRING(50),
+    required: true,
+  },
 });
 
 module.exports = Complaints;

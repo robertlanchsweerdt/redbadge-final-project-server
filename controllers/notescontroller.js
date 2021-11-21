@@ -11,8 +11,11 @@ const { validateJWT } = require('../middleware');
 router.post('/:id', validateJWT, (req, res) => {
   console.log('*** User ID **** --->', req.user.id);
 
+  const author = `${req.user.fname} ${req.user.lname}`;
+
   const createNote = {
     notes: req.body.notes,
+    author: author,
     complaintId: req.params.id,
     userId: req.user.id,
   };

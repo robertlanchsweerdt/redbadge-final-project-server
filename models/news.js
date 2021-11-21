@@ -16,6 +16,10 @@ const News = db.define('news', {
   photos: {
     type: DataTypes.JSON,
   },
+  author: {
+    type: DataTypes.STRING(50),
+    required: true,
+  },
 });
 
 module.exports = News;

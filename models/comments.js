@@ -6,6 +6,10 @@ const Comments = db.define('comments', {
     type: DataTypes.TEXT,
     required: true,
   },
+  author: {
+    type: DataTypes.STRING(50),
+    required: true,
+  },
 });
 
 module.exports = Comments;

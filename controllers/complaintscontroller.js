@@ -12,6 +12,8 @@ router.post('/', validateJWT, async (req, res) => {
   const { category, status, address, city, state, zip, narrative, photos } =
     req.body;
 
+  const author = `${req.user.fname} ${req.user.lname}`;
+
   const complaintEntry = {
     category,
     status,
@@ -21,6 +23,7 @@ router.post('/', validateJWT, async (req, res) => {
     zip,
     narrative,
     photos,
+    author: author,
     userId: req.user.id,
   };
 

@@ -28,11 +28,11 @@ UsersModel.hasMany(CommentsModel); // a single user can have many comments
 ComplaintsModel.belongsTo(UsersModel); // each complaint belongs to a specific user
 ComplaintsModel.hasMany(NotesModel); // each complaint post has many notes
 
+NotesModel.belongsTo(ComplaintsModel); // each note belongs to a specific complaint post
+NotesModel.belongsTo(UsersModel); // each note belongs to a specific user
+
 NewsModel.belongsTo(UsersModel); // each news post belonds to a specific user
 NewsModel.hasMany(CommentsModel); // each news post has many comments
 
 CommentsModel.belongsTo(NewsModel); // each comment belongs to a specific news post
 CommentsModel.belongsTo(UsersModel); // each comment belongs to a specific user
-
-NotesModel.belongsTo(ComplaintsModel); // each note belongs to a specific complaint post
-NotesModel.belongsTo(UsersModel); // each note belongs to a specific user

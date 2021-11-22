@@ -5,7 +5,7 @@ const db = require('./db');
 const app = Express();
 
 // Import middlewares as a bundle
-const middlewares = require('./middleware');
+// const middlewares = require('./middleware');
 
 // Import controllers as a bundle
 const controllers = require('./controllers');
@@ -13,7 +13,7 @@ const { reset } = require('nodemon');
 
 // Parse the body of all requests as JSON
 app.use(Express.json());
-app.use(middlewares.CORS);
+app.use(require('./middleware/cors'));
 app.use('/users', controllers.userController);
 app.use('/complaints', controllers.complaintsController);
 app.use('/notes', controllers.notesController);

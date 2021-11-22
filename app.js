@@ -9,7 +9,7 @@ const app = Express();
 
 // Import controllers as a bundle
 const controllers = require('./controllers');
-const { reset } = require('nodemon');
+// const { reset } = require('nodemon');
 
 // some comment
 

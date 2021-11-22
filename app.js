@@ -11,6 +11,8 @@ const app = Express();
 const controllers = require('./controllers');
 const { reset } = require('nodemon');
 
+// some comment
+
 // Parse the body of all requests as JSON
 app.use(Express.json());
 app.use(require('./middleware/cors'));
